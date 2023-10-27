@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+    const url = `${import.meta.env.PUBLIC_API_URL}/guitarras/`;
+    const resp = await fetch(url);
+    const result = await resp.json();
+    return result.map( itemGuitarra =>({
+        params:{
+
+            id: itemGuitarra.id_guitarra,
+        },
+        props :{
+            guitarra: itemGuitarra
+        }
+    }));
+}
+
+    
+// console.log(Astro.params)
+console.log(Astro.props)
+
+const {nombre, valor, descripcion, imagen} = Astro.props
+---
+<Layout title={`Guitarra ${nombre}` } description='Tienda de guitarras, blog de música y más'>
+    <main class="guitarra">
+        <h1>Routing dinamico</h1>
+    </main>
+</Layout>

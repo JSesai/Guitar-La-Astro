@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Guitarra from '../components/guitarra.astro';
+
+const url = `${import.meta.env.PUBLIC_API_URL}/guitarras`;
+const resp = await fetch(url);
+const result = await resp.json();
+
+// console.log(result)
+---
+
+<Layout title="Tienda de guitarras" description='Tienda de guitarras, blog de música y más'>
+	<main class="contenedor">
+		<h1 class="heading">Nuestra Colección</h1>
+		<div class="grid">
+			{result?.map(guitarraItem =>(
+				<Guitarra 
+					id_guitarra={guitarraItem.id_guitarra}
+					nombre={guitarraItem.nombre}
+					valor={guitarraItem.valor}
+					imagen={guitarraItem.imagen}
+					descripcion={guitarraItem.descripcion}
+				/>
+			))}
+		</div>
+	</main>
+</Layout>
+
+<style>
+	
+</style>
